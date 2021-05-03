@@ -468,22 +468,29 @@ class Ui_MainWindow(object):
         
         self.ErrorLabel.setText('')
         
-        self.TotBud = int(self.TotBudEdit.text())
-    
-        self.AirMaxBudLabel.setText(str(self.TotBud))
-        self.LEDMaxBudLabel.setText(str(self.TotBud))
-        self.PVMaxBudLabel.setText(str(self.TotBud))
+        self.TotBud = self.TotBudEdit.text()
         
-        self.AirSlider.setMaximum(self.TotBud)
-        self.LEDSlider.setMaximum(self.TotBud)
-        self.PVSlider.setMaximum(self.TotBud)
+        if self.TotBud.isnumeric() == True:
+            
+            self.TotBud = int(self.TotBud)
+            self.AirMaxBudLabel.setText(str(self.TotBud))
+            self.LEDMaxBudLabel.setText(str(self.TotBud))
+            self.PVMaxBudLabel.setText(str(self.TotBud))
         
-        self.BudgetRemNumLabel.setText(str(self.TotBud))
+            self.AirSlider.setMaximum(self.TotBud)
+            self.LEDSlider.setMaximum(self.TotBud)
+            self.PVSlider.setMaximum(self.TotBud)
         
-        self.AirSlider.setValue(0)
-        self.LEDSlider.setValue(0)
-        self.PVSlider.setValue(0)
+            self.BudgetRemNumLabel.setText(str(self.TotBud))
         
+            self.AirSlider.setValue(0)
+            self.LEDSlider.setValue(0)
+            self.PVSlider.setValue(0)
+        
+        else:
+            self.ErrorLabel.setText('Please enter an integer for the budget.')
+            
+            
     def Air_number_changed(self):
         
         if self.TotBud > 0:
@@ -502,7 +509,7 @@ class Ui_MainWindow(object):
             self.BudgetRemNumLabel.setText(str(self.Remaining_Budget))
         
             self.progressValue = (1 - (self.Remaining_Budget/self.TotBud))*100
-            self.progressBar.setValue(self.progressValue)
+            self.progressBar.setValue(int(self.progressValue))
 
         else:
             self.ErrorLabel.setText('Error. Please input valid budget and reset.')
@@ -522,7 +529,7 @@ class Ui_MainWindow(object):
             self.BudgetRemNumLabel.setText(str(self.Remaining_Budget))
         
             self.progressValue = (1 - (self.Remaining_Budget/self.TotBud))*100
-            self.progressBar.setValue(self.progressValue)
+            self.progressBar.setValue(int(self.progressValue))
     
         else:
             self.ErrorLabel.setText('Error. Please input valid budget and reset.')
@@ -539,21 +546,38 @@ class Ui_MainWindow(object):
             self.BudgetRemNumLabel.setText(str(self.Remaining_Budget))
         
             self.progressValue = (1 - (self.Remaining_Budget/self.TotBud))*100
-            self.progressBar.setValue(self.progressValue)
+            self.progressBar.setValue(int(self.progressValue))
             
         else:
             self.ErrorLabel.setText('Error. Please input valid budget and reset.')
                 
             
     def click_run_btn(self):
-        if self.checkBox.isChecked() == True and self.checkBox_2.isChecked() == True:
-            self.ErrorLabel.setText('Error. Please check only one box.')
+        
+        if self.TotBud <= 0:
+            self.ErrorLabel.setText('Error. Please input valid budget and reset.')
             
-        elif self.checkBox.isChecked() == False and self.checkBox_2.isChecked() == False:
+        elif self.checkBox.isChecked() == self.checkBox_2.isChecked() :
             self.ErrorLabel.setText('Error. Please check only one box.')
             
         else:
             self.ErrorLabel.setText('')
+            self.Results_and_Plotting()
+            
+            
+            
+            
+    def Results_and_Plotting(self):
+        
+        
+        '''
+        Insert your code in this method. Variables to play with are self.AirValue, self.LEDValue, self.PVValue 
+        and self.checkBox.isChecked() [refers to retrofitted] and self.checkBox_2.isChecked() [refers to New Homes]
+        '''
+        
+        
+        print('Im Working')
+        
 
 
 if __name__ == "__main__":
