@@ -85,9 +85,6 @@ def Plotting():
         if i not in new_dateList:
             new_dateList.append(i)
 
-    # Subplot Set-up
-    fig, (ax1,ax2) = plt.subplots(1, 2, figsize=(20,20))
-
     # Text Colors/FontSize
     plt.rcParams['font.weight'] = 'bold'
     plt.rcParams['font.sans-serif'] = ['Lucida Grande']
@@ -95,13 +92,12 @@ def Plotting():
     plt.rcParams['text.color'] = 'black'
 
     # Window Size
-    # fig = plt.figure(figsize=(12,5))
+    fig = plt.figure(figsize=(12,5))
     
     # Color
     fig.patch.set_facecolor('lightcyan')
     
     # Plotting
-    fig, ax = plt.subplots()
     plt.plot(date_list, power_past, label = 'Original Data')
     plt.plot(future_dates, output_list, label = 'New Data Regression')
     plt.plot(new_dateList, power_regr, label = 'Original Data Regression')
@@ -141,8 +137,8 @@ def Plotting():
     colors = ['springgreen', 'lightcoral', 'khaki', 'aquamarine', 'thistle']
     
     # Create subplot
-    plt.subplot(1,2,2)
-    ax2.pie(percentage,explode = solar, colors = colors, labels = energy, autopct='%1.1f%%', shadow=True, startangle=90, textprops={'fontsize': 8})
+    fig, ax = plt.subplots()
+    ax.pie(percentage,explode = solar, colors = colors, labels = energy, autopct='%1.1f%%', shadow=True, startangle=90, textprops={'fontsize': 8})
     
     # Final Parameters
     fig.patch.set_facecolor('lightcyan')
