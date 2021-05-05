@@ -1,4 +1,4 @@
-Date,Average kWh,Fuel Charge (Cents/kWh),Average Bill
+Date,Average_kWh,Fuel Charge (Cents/kWh),Average Bill
 01/01/2000 12:00:00 AM,820,1.372,54.26
 02/01/2000 12:00:00 AM,766,1.372,50.27
 03/01/2000 12:00:00 AM,707,1.372,45.91
