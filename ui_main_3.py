@@ -2,6 +2,9 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+from PyQt5.QtWidgets import QApplication, QDialog
+from PyQt5.QtCore import QCoreApplication
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -562,12 +565,13 @@ class Ui_MainWindow(object):
             
         else:
             self.ErrorLabel.setText('')
-            self.Results_and_Plotting()
+            self.Results()
+            self.Plotting()
             
             
             
             
-    def Results_and_Plotting(self):
+    def Results(self):
                 
         '''
         Insert your code in this method. Variables to play with are self.AirValue, self.LEDValue, self.PVValue 
@@ -579,7 +583,15 @@ class Ui_MainWindow(object):
         # PV Installation [$] -----> Total/Average cost[$ / kW] = kW of solar install ------> kW of solar install * (production ratio/12)*1000 = kWh per month
 
         # average montly residential electricity use (kWh/month), pulled from Austin Energy billing data (average over 1 year)
-        energy_use = 1000
+        import pandas as pd
+        import numpy as np
+        
+        file = 'Residential_Average_Monthly_kWh_and_Bills_New.csv'
+        data = pd.read_csv(file, encoding='latin-1')
+        
+        energy_list = np.array(data.Average_kWh)
+
+        energy_use = sum(energy_list)/len(energy_list)
         
         # energy saved from air sealing (kWh/month)
         air_cost = 3500     # $/home to seal building envelope
@@ -596,19 +608,30 @@ class Ui_MainWindow(object):
         PV_cost = 1960      # $/kW average residential install cost in Austin
         prod_ratio = 1.45   # kWh/yr per W of PV installed (ranges from 1.3-1.6 for U.S.)
         kw_installed = int(self.PVValue) / PV_cost
-        energy_gen = kw_installed * prod_ratio / 12 * 1000
+        energy_gen = ((kw_installed * prod_ratio) / 12) * 1000
 
+        # print('Im Working')
+        # print(energy_saved_1) 
+        # print(energy_saved_2)  
+        # print(energy_gen)
         
-        print('Im Working')
-        print(energy_saved_1) 
-        print(energy_saved_2)  
-        print(energy_gen)
+        self.energy_saved = energy_saved_1 + energy_saved_2
+        self.energy_gen = energy_gen
+        
+        print(energy_use)
+        
+    def Plotting(self):
+        pass
+    
         
 
 
 if __name__ == "__main__":
     import sys
-    app = QtWidgets.QApplication(sys.argv)
+    #app = QtWidgets.QApplication(sys.argv)
+    app = QCoreApplication.instance()
+    if app is None:
+        app = QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
