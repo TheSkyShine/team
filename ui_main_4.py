@@ -430,7 +430,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.TitleLabel.setText(_translate("MainWindow", "City of Austin Sustainability Budget Maker"))
+        self.TitleLabel.setText(_translate("MainWindow", "Austin Decarbonization Budget Tool [$ Mil]"))
         self.TotalBudgetLabel.setText(_translate("MainWindow", "Total Budget:"))
         self.BudgetRemLabel.setText(_translate("MainWindow", "Budget Remaining: "))
         self.InvestmentsLabel.setText(_translate("MainWindow", "Investments"))
@@ -568,8 +568,15 @@ class Ui_MainWindow(object):
             
         else:
             self.ErrorLabel.setText('')
+            
+            self.AirValue = int(self.AirValue)*1e6
+            self.LEDValue = int(self.LEDValue)*1e6
+            self.PVValue = int(self.PVValue)*1e6
+            
             self.Results()
             self.Plotting()
+            
+
             
             
             
@@ -621,10 +628,8 @@ class Ui_MainWindow(object):
         self.energy_saved = energy_saved_1 + energy_saved_2
         self.energy_gen = energy_gen
         self.energy_use = energy_use
-        
- 
-        print(self.energy_saved)
-        print(num_homes)
+    
+
         
         
     def Plotting(self):
