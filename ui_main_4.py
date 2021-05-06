@@ -436,7 +436,7 @@ class Ui_MainWindow(object):
         self.InvestmentsLabel.setText(_translate("MainWindow", "Investments"))
         self.AirLabel.setText(_translate("MainWindow", "Home Energy Efficiency (Air Sealing)"))
         self.LEDLabel.setText(_translate("MainWindow", "Efficient Lighting Program (LEDs)"))
-        self.PVLabel.setText(_translate("MainWindow", "PV Installation Rebate Program (check one)"))
+        self.PVLabel.setText(_translate("MainWindow", "Solar Installation Program (check one)"))
         self.PVLabelA.setText(_translate("MainWindow", "A) Retrofitted?"))
         self.PVLabelB.setText(_translate("MainWindow", "B) New Homes?"))
         self.DollarLabel.setText(_translate("MainWindow", "$"))
@@ -733,7 +733,7 @@ class Ui_MainWindow(object):
         # Plotting
         plt.subplot(2,2,(1,2))
         plt.plot(date_list, power_past, label = 'Original Data')
-        plt.plot(future_dates, output_list, label = 'New Data Regression')
+        plt.plot(future_dates, output_list, label = 'New Data Regression', linewidth = 4.5)
         plt.plot(new_dateList, power_regr, label = 'Original Data Regression')
         
         
